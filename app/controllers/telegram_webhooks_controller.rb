@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
+  include Telegram::Bot::UpdatesController::MessageContext
+
   use_session!
 
   def start!(*)
@@ -12,6 +14,15 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       create_user!
       respond_with :message, text: 'Привет! Вы зарегистрированы!'
     end
+  end
+
+  def pick!(*)
+    save_context :pick_action
+    respond_with :message, text: "Выберите действие:\n1) Действие 1\n2) Действие 2"
+  end
+
+  def pick_action(action = nil, *)
+    respond_with :message, text: "Вы выбрали действие #{action}"
   end
 
   def save!(*words)
