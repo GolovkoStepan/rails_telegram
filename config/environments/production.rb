@@ -104,4 +104,7 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   routes.default_url_options = { host: 'rails-telegram.herokuapp.com', protocol: 'https' }
+
+  config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'] }
+  config.telegram_updates_controller.session_store = :redis_cache_store, { expires_in: 1.month }
 end
