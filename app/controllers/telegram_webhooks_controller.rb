@@ -42,6 +42,45 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with :message, text: "Ваше сохраненное сообщение: #{session[:msg]}"
   end
 
+  def keyboard!(*words)
+    buttons = [
+      ['Кнопка 1', 'Кнопка 2', 'Кнопка 3'],
+      ['Кнопка 4', 'Кнопка 5', 'Кнопка 6'],
+      ['Кнопка 7', 'Кнопка 8', 'Кнопка 9']
+    ]
+
+    if words.any?
+      respond_with :message, text: "Вы выбрали: #{words.join(' ')}"
+    else
+      save_context :keyboard!
+      respond_with :message, text: 'Выберите действие:', reply_markup: {
+        keyboard: buttons,
+        resize_keyboard: true,
+        one_time_keyboard: true,
+        selective: true
+      }
+    end
+  end
+
+  def inline_keyboard!(*)
+    respond_with :message, text: 'Что вы выберите?', reply_markup: {
+      inline_keyboard: [
+        [
+          { text: 'Показать алерт', callback_data: 'alert' },
+          { text: 'Не показывать алерт', callback_data: 'no_alert' }
+        ]
+      ]
+    }
+  end
+
+  def callback_query(data)
+    if data == 'alert'
+      answer_callback_query 'Вот алерт!'
+    else
+      respond_with :message, text: 'Не будет алерта...'
+    end
+  end
+
   private
 
   def session_key
