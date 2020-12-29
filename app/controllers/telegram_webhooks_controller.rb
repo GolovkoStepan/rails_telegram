@@ -5,6 +5,14 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   use_session!
 
+  def self.send_message(to:, text:)
+    new(bot, { from: { 'id' => to }, chat: { 'id' => to } }).process(:send_message, text)
+  end
+
+  def send_message(text)
+    respond_with :message, text: text
+  end
+
   def start!(*)
     return if from['is_bot']
 
