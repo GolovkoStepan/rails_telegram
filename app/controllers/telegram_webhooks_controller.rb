@@ -73,7 +73,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     buttons = []
     buttons << [{ text: 'Взять этот заказ', callback_data: "take_order##{order.id}" }] if order.telegram_user.nil?
-    buttons << [{ text: 'Завершить этот заказ', callback_data: "complete_order##{order.id}" }] if order.telegram_user == user
+    if order.telegram_user == user
+      buttons << [{ text: 'Завершить этот заказ', callback_data: "complete_order##{order.id}" }]
+    end
 
     respond_with :message, text: text.join("\n"), reply_markup: { inline_keyboard: buttons }
   end
