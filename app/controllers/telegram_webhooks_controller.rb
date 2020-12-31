@@ -9,12 +9,13 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     user_orders: 'Показать заказы, назначенные мне'
   }.freeze
 
-  def self.send_message(to:, text:)
-    new(bot, { from: { 'id' => to }, chat: { 'id' => to } }).process(:send_message, text)
+  def self.send_message(action:, to:, args:)
+    new(bot, { from: { 'id' => to }, chat: { 'id' => to } }).process(action, args)
   end
 
-  def send_message(text)
-    respond_with :message, text: text
+  def new_order_notification(args)
+    buttons = [[{ text: "Заказ №#{args.first}", callback_data: "detail_order##{args.first}" }]]
+    respond_with :message, text: 'Поступил новый заказ!', reply_markup: { inline_keyboard: buttons }
   end
 
   def start!(*)
