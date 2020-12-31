@@ -9,6 +9,6 @@ class Order < ApplicationRecord
   after_create :notify_telegram_users
 
   def notify_telegram_users
-    CreateOrderNotificationWorker.perform_async(id)
+    CreateOrderNotificationWorker.perform_in(10.seconds, id)
   end
 end
