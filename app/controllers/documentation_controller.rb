@@ -1,5 +1,5 @@
-class DocumentationController < ApplicationController
-  def index
-    render plain: 'Telegram Bot Rails Application'
-  end
+# frozen_string_literal: true
+
+class DocumentationController < ActionController::Base
+  def index; end
 end

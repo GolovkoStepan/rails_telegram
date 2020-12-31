@@ -1,0 +1,3 @@
+worker: bundle exec sidekiq
+rails:  PORT=3000 bundle exec rails server
+bot:    bundle exec rails telegram:bot:poller

@@ -1,24 +1,12 @@
-# README
+# Rails Telegram Bot
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Тестовый проект Telegram бота на основе Rails приложения. Реализованы некоторые функции ботов, работающих с курьерами.
 
-Things you may want to cover:
+Запуск:
 
-* Ruby version
+- необходимо создать файл .env в корне проекта (см. файл .env.sample)
+- запустить redis-server или добавить его в Procfile.dev (как удобней)
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```shell script
+$ hivemind Procfile.dev
+```

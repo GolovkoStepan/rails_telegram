@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_24_120057) do
+ActiveRecord::Schema.define(version: 2020_12_29_115001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "orders", force: :cascade do |t|
+    t.string "customer"
+    t.string "address"
+    t.bigint "telegram_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["telegram_user_id"], name: "index_orders_on_telegram_user_id"
+  end
 
   create_table "telegram_users", force: :cascade do |t|
     t.bigint "external_id", null: false
@@ -26,4 +35,5 @@ ActiveRecord::Schema.define(version: 2020_12_24_120057) do
     t.index ["external_id"], name: "index_telegram_users_on_external_id", unique: true
   end
 
+  add_foreign_key "orders", "telegram_users"
 end
