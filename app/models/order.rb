@@ -13,6 +13,8 @@ class Order < ApplicationRecord
 
     TelegramUser.all.each do |user|
       TelegramWebhooksController.send_message(to: user.external_id, text: msg)
+    rescue Telegram::Bot::Forbidden
+      user.destroy
     end
   end
 end
