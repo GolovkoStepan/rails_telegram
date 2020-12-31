@@ -9,12 +9,6 @@ class Order < ApplicationRecord
   after_create :notify_telegram_users
 
   def notify_telegram_users
-    msg = "Поступил новый заказ №#{id}"
-
-    TelegramUser.all.each do |user|
-      TelegramWebhooksController.send_message(to: user.external_id, text: msg)
-    rescue Telegram::Bot::Forbidden
-      user.destroy
-    end
+    CreateOrderNotificationWorker.perform_async(id)
   end
 end
