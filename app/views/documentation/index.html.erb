@@ -1,0 +1,14 @@
+<h2>Rails Telegram Bot</h2>
+<p>Version: <%= RailsTelegram::Application::VERSION %></p>
+<p>GitHub: <%= link_to nil, 'https://github.com/GolovkoStepan/rails_telegram', target: '_blank'%></p>
+<p>Bot link: <%= link_to nil, 'https://t.me/DeliveryRailsBot', target: '_blank' %></p>
+
+<hr>
+
+<h3>API Methods</h3>
+
+<p><strong>Create order</strong></p>
+POST /api/orders <br>
+Basic access authentication <br>
+body: { customer: "Customer Name", address: 'Customer address' } <br>
+
